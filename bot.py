@@ -12,6 +12,8 @@ BASE_OF_POST_URL = config.base_of_post
 SINGLE_RUN = config.single_run
 BOT_TOKEN = config.token
 CHANNEL_NAME = config.channel_name
+TIME_SLEEP = config.time_sleep
+MIN_LIKES = config.min_likes
 
 bot = telebot.TeleBot(config.token)
 
@@ -30,8 +32,9 @@ def send_new_posts(items, last_id):
 	for item in items:
 		if item['id'] <= last_id:
 			break
-		if item['likes'] < 5:
-			break
+		if item['likes'] is not None:
+			if item['likes'] < MIN_LIKES:
+				break
 		link = '{!s}{!s}'.format(BASE_OF_POST_URL, item['id'])
 		bot.send_message(CHANNEL_NAME, link)
 
@@ -47,7 +50,7 @@ def check_new_posts_vk():
 		if last_id is None:
 			logging.error('Could not read from storage; skipped iteration. ')
 			return
-		logging.info('Last IF of post in VK = {!s}'.format(last_id))
+		logging.info('Last id of post in VK = {!s}'.format(last_id))
 	try: 
 		feed = get_data()
 		# If there was a timeout before, miss the iteration.
@@ -89,7 +92,7 @@ if __name__ == '__main__':
     		check_new_posts_vk()
     		# 4 min pause before repeat scan
     		logging.info('[App] Script went to sleep. ')
-    		time.sleep(60 * 15)
+    		time.sleep(TIME_SLEEP)
     else:
     	check_new_posts_vk()
     logging.info('[App] Script exited.\n')

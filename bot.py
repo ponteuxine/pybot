@@ -12,7 +12,8 @@ BASE_OF_POST_URL = config.base_of_post
 SINGLE_RUN = config.single_run
 BOT_TOKEN = config.token
 CHANNEL_NAME = config.channel_name
-TIME_SLEEP = config.time_sleep
+TIME_LONG_SLEEP = config.time_long_sleep
+TIME_SHORT_SLEEP = config.time_short_sleep
 MIN_LIKES = config.min_likes
 
 bot = telebot.TeleBot(config.token)
@@ -32,14 +33,14 @@ def send_new_posts(items, last_id):
 	for item in items:
 		if item['id'] <= last_id:
 			break
-		if item['likes'] is not None:
-			if item['likes'] < MIN_LIKES:
-				break
+		# if item['likes'] is not None:
+		# 	if item['likes'] < MIN_LIKES:
+		# 		break
 		link = '{!s}{!s}'.format(BASE_OF_POST_URL, item['id'])
 		bot.send_message(CHANNEL_NAME, link)
 
 		#sleep for second to avoid errors
-		time.sleep(1)
+		time.sleep(TIME_SHORT_SLEEP)
 	return
 
 def check_new_posts_vk():
@@ -92,7 +93,7 @@ if __name__ == '__main__':
     		check_new_posts_vk()
     		# 4 min pause before repeat scan
     		logging.info('[App] Script went to sleep. ')
-    		time.sleep(TIME_SLEEP)
+    		time.sleep(TIME_LONG_SLEEP)
     else:
     	check_new_posts_vk()
     logging.info('[App] Script exited.\n')

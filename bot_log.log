@@ -1,0 +1,9 @@
+[17.05.2017 12:31:11] bot.py:48 INFO - [VK] Start of scanning for new posts. 
+[17.05.2017 12:31:11] bot.py:54 INFO - Last id of post in VK = 202881
+[17.05.2017 12:31:13] bot.py:81 ERROR - Exception of type TypeError in check_new_post(): '<' not supported between instances of 'dict' and 'int'
+[17.05.2017 12:31:13] bot.py:83 INFO - [VK] Finished scanning
+[17.05.2017 12:31:13] bot.py:95 INFO - [App] Script went to sleep. 
+[17.05.2017 12:34:20] bot.py:48 INFO - [VK] Start of scanning for new posts. 
+[17.05.2017 12:34:20] bot.py:54 INFO - Last id of post in VK = 202881
+[17.05.2017 12:36:37] bot.py:75 INFO - New last_id of VK post is 202926
+[17.05.2017 12:36:37] bot.py:95 INFO - [App] Script went to sleep. 
